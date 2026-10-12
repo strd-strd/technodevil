@@ -76,6 +76,21 @@ certbot --nginx \
 
 ---
 
+## Env: заявки на почту
+
+Файл `/var/www/technodevil/.env.local` (`chmod 600`, git не затирает):
+
+```
+RESEND_API_KEY=re_...
+LEAD_TO_EMAIL=denis.lishkov@gmail.com
+# LEAD_FROM_EMAIL=TECHNODEVIL <noreply@technodevil.ru>
+```
+
+Ключ можно взять с ollmet: `grep RESEND /var/www/ollmet/.env.local`  
+После смены env — полная пересборка и `pm2 restart technodevil`.
+
+---
+
 ## Обычный деплой (после правок на Mac)
 
 ```bash

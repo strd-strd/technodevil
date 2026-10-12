@@ -513,9 +513,19 @@ p {
 }
 
 .feedback__form {
+  position: relative;
   width: 415px;
   max-width: 100%;
   margin: 0 auto 30px;
+}
+
+.td-hp {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .feedback__title {
@@ -780,16 +790,25 @@ p {
   transform: rotate(90deg);
 }
 
-.form-note {
+.form-note,
+.form-error {
   margin-top: 14px;
   text-align: center;
-  color: #ce0f0c;
   font-family: var(--font-corporate), sans-serif;
   opacity: 0;
   transform: translate3d(0, 8px, 0);
 }
 
-.form-note.is-visible {
+.form-note {
+  color: #ce0f0c;
+}
+
+.form-error {
+  color: #8a1a18;
+}
+
+.form-note.is-visible,
+.form-error.is-visible {
   animation: fade-up 0.45s var(--ease-out) forwards;
 }
 
