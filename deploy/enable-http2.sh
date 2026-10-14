@@ -10,7 +10,8 @@ if [[ ! -f "$CONF" ]]; then
   exit 1
 fi
 
-cp -a "$CONF" "${CONF}.bak.$(date +%Y%m%d%H%M%S)"
+# Бэкап НЕ в sites-enabled — иначе nginx подхватит .bak и упадёт на duplicate listen
+cp -a "$CONF" "/root/technodevil.nginx.bak.$(date +%Y%m%d%H%M%S)"
 
 python3 - <<'PY'
 from pathlib import Path
