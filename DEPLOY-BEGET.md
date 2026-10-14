@@ -76,6 +76,16 @@ certbot --nginx \
 
 ---
 
+## HTTP/2
+
+После SSL:
+
+```bash
+bash /var/www/technodevil/deploy/enable-http2.sh
+```
+
+---
+
 ## Env: заявки на почту
 
 Файл `/var/www/technodevil/.env.local` (`chmod 600`, git не затирает):

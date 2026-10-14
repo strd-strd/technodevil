@@ -1,15 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, type PointerEvent } from "react";
 import { useReducedMotion } from "@/app/hooks/use-reduced-motion";
 
 type TiltMediaProps = {
   src: string;
   alt: string;
+  width: number;
+  height: number;
   className?: string;
+  priority?: boolean;
+  sizes?: string;
 };
 
-export function TiltMedia({ src, alt, className = "" }: TiltMediaProps) {
+export function TiltMedia({
+  src,
+  alt,
+  width,
+  height,
+  className = "",
+  priority = false,
+  sizes = "(max-width: 768px) 100vw, 560px",
+}: TiltMediaProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
@@ -40,7 +53,16 @@ export function TiltMedia({ src, alt, className = "" }: TiltMediaProps) {
       onPointerMove={onMove}
       onPointerLeave={onLeave}
     >
-      <img className="tilt-media__img" src={src} alt={alt} />
+      <Image
+        className="tilt-media__img"
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={sizes}
+        priority={priority}
+        loading={priority ? undefined : "lazy"}
+      />
       <span className="tilt-media__shine" aria-hidden="true" />
     </div>
   );
