@@ -109,14 +109,18 @@ export default function HomePage() {
                 Именно философия живого в мертвом, созданная в фантастических фильмах, стала основой ТЕХНОДЬЯВОЛА.
               </Reveal>
               <Reveal delay={180}>
-                <TiltMedia
-                  className="premier__img"
-                  src="/images/premier-1.webp"
-                  alt="Живые барабаны TECHNODEVIL"
-                  width={960}
-                  height={1080}
-                  sizes="(max-width: 768px) 100vw, 415px"
-                />
+                <div className="motion-frame" data-motion="parallax">
+                  <div className="motion-frame__inner" data-motion-target>
+                    <TiltMedia
+                      className="premier__img"
+                      src="/images/premier-1.webp"
+                      alt="Живые барабаны TECHNODEVIL"
+                      width={960}
+                      height={1080}
+                      sizes="(max-width: 768px) 100vw, 415px"
+                    />
+                  </div>
+                </div>
               </Reveal>
               <Reveal delay={220}>
                 <a className="outline-btn premier__btn" href="#contacts">
@@ -126,14 +130,18 @@ export default function HomePage() {
             </div>
             <div className="premier__column">
               <Reveal delay={100}>
-                <TiltMedia
-                  className="premier__img"
-                  src="/images/premier-2.webp"
-                  alt="Выступление TECHNODEVIL"
-                  width={960}
-                  height={1080}
-                  sizes="(max-width: 768px) 100vw, 415px"
-                />
+                <div className="motion-frame" data-motion="parallax">
+                  <div className="motion-frame__inner" data-motion-target>
+                    <TiltMedia
+                      className="premier__img"
+                      src="/images/premier-2.webp"
+                      alt="Выступление TECHNODEVIL"
+                      width={960}
+                      height={1080}
+                      sizes="(max-width: 768px) 100vw, 415px"
+                    />
+                  </div>
+                </div>
               </Reveal>
               <Reveal as="p" className="premier__text" delay={160}>
                 «ТЕХНОДЬЯВОЛ всегда был одним из самых технологически премиальных коллективов на сцене страны. Мы поняли
@@ -186,14 +194,18 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal className="design__media-main" delay={90}>
-              <TiltMedia
-                className="design__interior-img"
-                src="/images/design-1.webp"
-                alt="Сцена TECHNODEVIL"
-                width={1600}
-                height={1067}
-                sizes="(max-width: 768px) 100vw, 510px"
-              />
+              <div className="motion-frame motion-frame--design" data-motion="rise">
+                <div className="motion-frame__inner" data-motion-target>
+                  <TiltMedia
+                    className="design__interior-img"
+                    src="/images/design-1.webp"
+                    alt="Сцена TECHNODEVIL"
+                    width={1600}
+                    height={1067}
+                    sizes="(max-width: 768px) 100vw, 510px"
+                  />
+                </div>
+              </div>
             </Reveal>
             <Reveal className="design__cell-two" delay={120}>
               <p className="design__cell-text">

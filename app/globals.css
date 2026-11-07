@@ -896,6 +896,24 @@ p {
   filter: blur(0);
 }
 
+/* GSAP scrub frames — clip overflow, keep tilt transform on inner media */
+.motion-frame {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.motion-frame__inner {
+  display: block;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+.motion-frame .premier__img,
+.motion-frame .design__interior-img {
+  width: 100%;
+}
+
 .tilt-media {
   position: relative;
   display: block;
