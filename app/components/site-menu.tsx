@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 
 const links = [
   { href: "#concept", label: "CONCEPT" },
@@ -13,6 +13,8 @@ const links = [
 export function SiteMenu() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
+  const panelId = useId();
+  const panelRef = useRef<HTMLElement>(null);
 
   const closeMenu = useCallback(() => {
     setClosing((isClosing) => {
@@ -25,14 +27,14 @@ export function SiteMenu() {
     });
   }, []);
 
-  useEffect(() => {
-    if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, [open]);
+  const toggleMenu = useCallback(() => {
+    if (open) {
+      closeMenu();
+      return;
+    }
+    setClosing(false);
+    setOpen(true);
+  }, [open, closeMenu]);
 
   useEffect(() => {
     if (!open) return;
@@ -43,14 +45,20 @@ export function SiteMenu() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, closeMenu]);
 
+  useEffect(() => {
+    if (!open || closing) return;
+    panelRef.current?.querySelector<HTMLElement>("a,button")?.focus();
+  }, [open, closing]);
+
   return (
     <>
       <button
-        className="header__nav"
+        className={`header__nav${open && !closing ? " is-open" : ""}`}
         type="button"
-        aria-label={open ? "Закрыть меню" : "Открыть меню"}
-        aria-expanded={open}
-        onClick={() => setOpen(true)}
+        aria-label={open && !closing ? "Закрыть меню" : "Открыть меню"}
+        aria-expanded={open && !closing}
+        aria-controls={panelId}
+        onClick={toggleMenu}
       >
         <span className="header__nav-bars" aria-hidden="true">
           <span />
@@ -58,22 +66,41 @@ export function SiteMenu() {
           <span />
         </span>
       </button>
+
       {open ? (
-        <nav className={`nav-overlay ${closing ? "is-closing" : "is-open"}`} aria-label="Разделы">
-          <button className="nav-overlay__close" type="button" onClick={closeMenu} aria-label="Закрыть">
-            X
-          </button>
-          {links.map((link, index) => (
-            <a
-              key={link.href}
-              href={link.href}
-              style={{ "--i": index } as CSSProperties}
+        <div className={`nav-drawer${closing ? " is-closing" : " is-open"}`}>
+          <button
+            className="nav-drawer__backdrop"
+            type="button"
+            aria-label="Закрыть меню"
+            onClick={closeMenu}
+          />
+          <nav
+            id={panelId}
+            ref={panelRef}
+            className="nav-drawer__panel"
+            aria-label="Разделы"
+          >
+            <button
+              className="nav-drawer__close"
+              type="button"
               onClick={closeMenu}
+              aria-label="Закрыть"
             >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+              ×
+            </button>
+            {links.map((link, index) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{ "--i": index } as CSSProperties}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
       ) : null}
     </>
   );
